@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sarkari Job Search</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0c4a6e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+    }
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .job {
+      background: white;
+      border-left: 5px solid #0c4a6e;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .job h3 {
+      margin: 0 0 10px 0;
+    }
+    .job a {
+      text-decoration: none;
+      color: #0c4a6e;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Sarkari Job Search Portal
+  </header>
+
+  <div class="container">
+    <div class="filter">
+      <select id="stateFilter">
+        <option value="All">All States</option>
+        <option value="Jharkhand">Jharkhand</option>
+        <option value="Bihar">Bihar</option>
+        <option value="UP">Uttar Pradesh</option>
+      </select>
+      <select id="qualificationFilter">
+        <option value="All">All Qualifications</option>
+        <option value="10th">10th Pass</option>
+        <option value="12th">12th Pass</option>
+        <option value="Graduate">Graduate</option>
+      </select>
+    </div>
+
+    <div class="job" data-state="Jharkhand" data-qualification="10th">
+      <h3>Jharkhand Anganwadi Bharti</h3>
+      <p>Qualification: 10th Pass | State: Jharkhand</p>
+      <a href="#">Apply Now</a>
+    </div>
+
+    <div class="job" data-state="All" data-qualification="10th">
+      <h3>India Post GDS (No Exam)</h3>
+      <p>Qualification: 10th Pass | State: All India</p>
+      <a href="#">Apply Now</a>
+    </div>
+
+    <div class="job" data-state="UP" data-qualification="12th">
+      <h3>UP Police Constable</h3>
+      <p>Qualification: 12th Pass | State: Uttar Pradesh</p>
+      <a href="#">Apply Now</a>
+    </div>
+
+    <div class="job" data-state="Bihar" data-qualification="Graduate">
+      <h3>Bihar Teacher Bharti</h3>
+      <p>Qualification: Graduate | State: Bihar</p>
+      <a href="#">Apply Now</a>
+    </div>
+  </div>
+
+  <script>
+    const stateFilter = document.getElementById("stateFilter");
+    const qualificationFilter = document.getElementById("qualificationFilter");
+    const jobs = document.querySelectorAll(".job");
+
+    function filterJobs() {
+      const selectedState = stateFilter.value;
+      const selectedQualification = qualificationFilter.value;
+
+      jobs.forEach(job => {
+        const jobState = job.getAttribute("data-state");
+        const jobQual = job.getAttribute("data-qualification");
+
+        const stateMatch = selectedState === "All" || jobState === selectedState || jobState === "All";
+        const qualMatch = selectedQualification === "All" || jobQual === selectedQualification;
+
+        if (stateMatch && qualMatch) {
+          job.style.display = "block";
+        } else {
+          job.style.display = "none";
+        }
+      });
+    }
+
+    stateFilter.addEventListener("change", filterJobs);
+    qualificationFilter.addEventListener("change", filterJobs);
+  </script>
+</body>
+</html>
